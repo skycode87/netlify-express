@@ -6,13 +6,14 @@ const app = express();
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 
+const PORT = process.env.PORT || 3050;
 
 const router = express.Router();
 
 app.use(bodyParser.json());
 app.use('/.netlify/functions/server', router);  // path must route to lambda
 
-const PORT = process.env.PORT || 3050;
+
 
 // MySql
 
@@ -90,6 +91,10 @@ app.delete('/delete/:id', (req, res) => {
     res.send('Delete customer');
   });
 });
+
+
+app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
+
 
 // Check connect
 connection.connect(error => {
